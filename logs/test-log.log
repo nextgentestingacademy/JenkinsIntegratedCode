@@ -18,3 +18,7 @@
 2025-11-14 14:33:57 INFO  Log:12 - Entered username Admin
 2025-11-14 14:33:58 INFO  Log:12 - Entered password admin1234
 2025-11-14 14:33:58 INFO  Log:12 - Clicked Login button
+2025-12-05 15:13:05 INFO  Log:12 - Test case: loginInvalidCredentials execution started
+2025-12-05 15:13:35 INFO  Log:12 - Entered username Admin
+2025-12-05 15:13:36 INFO  Log:12 - Entered password admin1234
+2025-12-05 15:13:36 INFO  Log:12 - Clicked Login button
