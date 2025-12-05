@@ -23,8 +23,15 @@ pipeline {
 
         stage('Publish TestNG Results') {
             steps {
-                junit 'test-output/testng-results.xml'
+                junit '**/testng-results.xml'
             }
         }
+
+        stage('Archive TestNG HTML Report') {
+            steps {
+                archiveArtifacts artifacts: 'test-output/**/*.html', fingerprint: true
+            }
+        }
+
     }
 }
