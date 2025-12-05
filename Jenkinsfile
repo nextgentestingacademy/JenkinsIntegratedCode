@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git url: 'https://github.com/nextgentestingacademy/POMDesign.git',
+                git url: 'https://github.com/nextgentestingacademy/JenkinsIntegratedCode.git',
                     branch: 'main',
                     credentialsId: 'git-github-token'
             }
