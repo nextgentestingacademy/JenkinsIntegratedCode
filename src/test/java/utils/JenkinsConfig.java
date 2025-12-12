@@ -9,5 +9,4 @@ public class JenkinsConfig {
 	public static String getBrowser() {
 		return System.getProperty("browser","chrome");
 	}
-	
 }

@@ -19,5 +19,4 @@ public class EnvironmentManager {
 		String env = JenkinsConfig.getEnv();
 		return prop.getProperty(env + ".url");
 	}
-	
 }

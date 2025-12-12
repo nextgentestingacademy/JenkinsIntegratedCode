@@ -34,7 +34,6 @@ public class BaseTest {
 			break;
 		default:
 		}
-		
 	}
 	
 	@BeforeMethod(alwaysRun = true)

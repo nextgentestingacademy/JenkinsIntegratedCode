@@ -18,9 +18,6 @@ public class BasePage {
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 	}
 	
-	
-	
-	
 	protected boolean waitForElementClickable(By locator) {
 		try {
 			wait.until(ExpectedConditions.elementToBeClickable(locator));
