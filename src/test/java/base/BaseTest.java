@@ -2,6 +2,9 @@ package base;
 
 import java.time.Duration;
 import utils.ConfigReader;
+import utils.EnvironmentManager;
+import utils.JenkinsConfig;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -19,7 +22,8 @@ public class BaseTest {
 	@BeforeSuite(alwaysRun = true)
 	public void configureDriver() {
 		ConfigReader.loadProperties();
-		browser = ConfigReader.get("browser");
+//		browser = ConfigReader.get("browser");
+		browser = JenkinsConfig.getBrowser();
 		
 		switch(browser) {
 		case "chrome":
@@ -44,7 +48,8 @@ public class BaseTest {
 			break;
 		default:
 		}
-		url=ConfigReader.get("url");
+//		url=ConfigReader.get("url");
+		url = EnvironmentManager.getBaseUrl();
 		timeout = Integer.parseInt(ConfigReader.get("timeout"));
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeout));
