@@ -38,8 +38,14 @@ public class TestNGListener extends BaseTest implements ITestListener {
     // This method runs ONCE before any test starts in the entire suite
     @Override
     public void onStart(ITestContext context) {
-        // Define report file location dynamically using project root directory
-        String reportPath = System.getProperty("user.dir") + "/reports/ExtentReport.html";
+    	String reportDir = System.getProperty("user.dir") + "/reports";
+        String screenshotDir = System.getProperty("user.dir") + "/screenshots";
+
+        new File(reportDir).mkdirs();
+        new File(screenshotDir).mkdirs();
+        
+    	// Define report file location dynamically using project root directory
+        String reportPath = reportDir + "/ExtentReport.html";
 
         // Create an ExtentSparkReporter which generates the HTML report
         ExtentSparkReporter reporter = new ExtentSparkReporter(reportPath);
@@ -81,6 +87,11 @@ public class TestNGListener extends BaseTest implements ITestListener {
 
         // Log the error message or exception that caused the failure
         extentTest.get().fail(result.getThrowable());
+        
+        if (driver == null) {
+            extentTest.get().fail("Driver is NULL. Screenshot not captured.");
+            return;
+        }
 
         // Capture a screenshot and store it in the screenshots folder
         File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
