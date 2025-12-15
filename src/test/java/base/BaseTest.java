@@ -27,8 +27,8 @@ public class BaseTest {
 	}
 	
 	@BeforeMethod(alwaysRun = true)
-	public static void launchApp() {
-		switch(browser) {
+	public void launchApp() {
+		switch(browser.trim().toLowerCase()) {
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
@@ -38,6 +38,8 @@ public class BaseTest {
 			driver = new EdgeDriver();
 			break;
 		default:
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
 		}
 		
 		driver.manage().window().maximize();
