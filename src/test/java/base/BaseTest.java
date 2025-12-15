@@ -4,7 +4,9 @@ import java.time.Duration;
 import utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -15,21 +17,16 @@ public class BaseTest {
 	public static WebDriver driver;
 	public static String browser, url;
 	public static int timeout;
+	protected boolean headless;
 	
 	@BeforeSuite(alwaysRun = true)
 	public void configureDriver() {
 		ConfigReader.loadProperties();
 		browser = System.getProperty("browser", "chrome");
 		String env = System.getProperty("env", "QA");
-		System.out.println("===== JENKINS PARAM DEBUG =====");
-	    System.out.println("Browser from Jenkins: " + browser);
-	    System.out.println("Env from Jenkins: " + env);
-
+		headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+		
 	    url = ConfigReader.get(env + ".url");
-
-	    System.out.println("Resolved URL: " + url);
-	    System.out.println("================================");
-
 		timeout = Integer.parseInt(ConfigReader.get("timeout"));
 	}
 	
@@ -38,15 +35,30 @@ public class BaseTest {
 		switch(browser.trim().toLowerCase()) {
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			ChromeOptions chromeOptions = new ChromeOptions();
+            if (headless) {
+                chromeOptions.addArguments("--headless=new");
+                chromeOptions.addArguments("--disable-gpu");
+            }
+            driver = new ChromeDriver(chromeOptions);
 			break;
 		case "edge":
 			WebDriverManager.edgedriver().setup();
-			driver = new EdgeDriver();
+			EdgeOptions edgeOptions = new EdgeOptions();
+            if (headless) {
+                edgeOptions.addArguments("--headless=new");
+                edgeOptions.addArguments("--disable-gpu");
+            }
+            driver = new EdgeDriver(edgeOptions);
 			break;
 		default:
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			ChromeOptions defOptions = new ChromeOptions();
+            if (headless) {
+            	defOptions.addArguments("--headless=new");
+            	defOptions.addArguments("--disable-gpu");
+            }
+            driver = new ChromeDriver(defOptions);
 		}
 		
 		driver.manage().window().maximize();
