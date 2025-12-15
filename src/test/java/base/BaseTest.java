@@ -2,9 +2,6 @@ package base;
 
 import java.time.Duration;
 import utils.ConfigReader;
-import utils.EnvironmentManager;
-import utils.JenkinsConfig;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -15,15 +12,16 @@ import org.testng.annotations.BeforeSuite;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
-	public WebDriver driver;
-	String browser, url;
-	int timeout;
+	public static WebDriver driver;
+	public static String browser, url;
+	public static int timeout;
 	
 	@BeforeSuite(alwaysRun = true)
 	public void configureDriver() {
 		ConfigReader.loadProperties();
-//		browser = ConfigReader.get("browser");
-		browser = JenkinsConfig.getBrowser();
+		browser = ConfigReader.get("browser");
+		url=ConfigReader.get("url");
+		timeout = Integer.parseInt(ConfigReader.get("timeout"));
 		
 		switch(browser) {
 		case "chrome":
@@ -37,19 +35,19 @@ public class BaseTest {
 	}
 	
 	@BeforeMethod(alwaysRun = true)
-	public void launchApp() {
+	public static void launchApp() {
 		switch(browser) {
 		case "chrome":
+			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			break;
 		case "edge":
+			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 			break;
 		default:
 		}
-//		url=ConfigReader.get("url");
-		url = EnvironmentManager.getBaseUrl();
-		timeout = Integer.parseInt(ConfigReader.get("timeout"));
+		
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeout));
 		driver.get(url);

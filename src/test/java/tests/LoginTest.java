@@ -1,5 +1,7 @@
 package tests;
 
+import java.time.Duration;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -8,6 +10,7 @@ import org.testng.asserts.SoftAssert;
 import utils.Log;
 import base.BaseTest;
 import pages.LoginPage;
+import utils.ConfigReader;
 import utils.DataProviderUtils;
 
 public class LoginTest extends BaseTest{
