@@ -24,6 +24,7 @@ public class ExtentManager {
             // Create an ExtentSparkReporter — this is the reporter responsible 
             // for generating a visually rich HTML report at the given location
             ExtentSparkReporter reporter = new ExtentSparkReporter(reportPath);
+            reporter.config().setOfflineMode(true);
             
             // Configure the report — give it a title and a name for easy identification
             reporter.config().setDocumentTitle("Automation Test Report");   // Title shown on browser tab
