@@ -19,12 +19,6 @@ public class ConfigReader {
 		}
 	}
 	
-//	public static String get(String key) {
-//		if(properties == null) {
-//			loadProperties();
-//		}
-//		return properties.getProperty(key);
-//	}
 	public static String get(String key) {
 
 	    // 1️⃣ First check Jenkins / Maven parameter

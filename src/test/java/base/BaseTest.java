@@ -21,7 +21,14 @@ public class BaseTest {
 		ConfigReader.loadProperties();
 		browser = System.getProperty("browser", "chrome");
 		String env = System.getProperty("env", "QA");
-		url = ConfigReader.get(env + ".url");
+		System.out.println("===== JENKINS PARAM DEBUG =====");
+	    System.out.println("Browser from Jenkins: " + browser);
+	    System.out.println("Env from Jenkins: " + env);
+
+	    url = ConfigReader.get(env + ".url");
+
+	    System.out.println("Resolved URL: " + url);
+	    System.out.println("================================");
 
 		timeout = Integer.parseInt(ConfigReader.get("timeout"));
 	}
