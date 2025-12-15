@@ -19,19 +19,11 @@ public class BaseTest {
 	@BeforeSuite(alwaysRun = true)
 	public void configureDriver() {
 		ConfigReader.loadProperties();
-		browser = ConfigReader.get("browser");
-		url=ConfigReader.get("url");
+		browser = System.getProperty("browser", "chrome");
+		String env = System.getProperty("env", "QA");
+		url = ConfigReader.get(env + ".url");
+
 		timeout = Integer.parseInt(ConfigReader.get("timeout"));
-		
-		switch(browser) {
-		case "chrome":
-			WebDriverManager.chromedriver().setup();
-			break;
-		case "edge":
-			WebDriverManager.edgedriver().setup();
-			break;
-		default:
-		}
 	}
 	
 	@BeforeMethod(alwaysRun = true)

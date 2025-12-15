@@ -19,10 +19,26 @@ public class ConfigReader {
 		}
 	}
 	
+//	public static String get(String key) {
+//		if(properties == null) {
+//			loadProperties();
+//		}
+//		return properties.getProperty(key);
+//	}
 	public static String get(String key) {
-		if(properties == null) {
-			loadProperties();
-		}
-		return properties.getProperty(key);
+
+	    // 1️⃣ First check Jenkins / Maven parameter
+	    String value = System.getProperty(key);
+
+	    // 2️⃣ If Jenkins did NOT send it, read from config file
+	    if (value == null || value.isEmpty()) {
+	        if (properties == null) {
+	            loadProperties();
+	        }
+	        value = properties.getProperty(key);
+	    }
+
+	    return value;
 	}
+
 }
