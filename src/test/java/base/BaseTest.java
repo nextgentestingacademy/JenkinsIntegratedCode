@@ -51,6 +51,15 @@ public class BaseTest {
             }
             driver = new EdgeDriver(edgeOptions);
 			break;
+		case "firefox":
+			WebDriverManager.firefoxdriver().setup();
+			EdgeOptions fireOptions = new EdgeOptions();
+            if (headless) {
+                fireOptions.addArguments("--headless=new");
+                fireOptions.addArguments("--disable-gpu");
+            }
+            driver = new EdgeDriver(fireOptions);
+			break;
 		default:
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions defOptions = new ChromeOptions();
